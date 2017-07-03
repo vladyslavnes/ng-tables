@@ -22,8 +22,7 @@
 	<main class="row">
 		<section class="col l7 s12">
 		<h2>Work here</h2>
-			<div class="btn left" ng-click="">
-				<a id="downloadLink"></a>
+			<div class="btn left" ng-click="downloadData()">
 				<i class="material-icons left">get_app</i>
 				<span class="left">download table in JSON</span>
 			</div>
@@ -62,7 +61,7 @@
 		<section class="col l5 s12">
 			<div>	
 				<h2>Just Paste the JSON data here</h2>
-				<h3>Or parse the file: <input style="font-size: 50%;" type="file"></h3>
+				<h3>Or parse the file: <input style="font-size: 50%;" type="file" ng-file-select></h3>
 				<textarea ng-model="input" ng-blur="parseInput(input)"></textarea>
 			</div><br>
 			<div class="divider"></div>

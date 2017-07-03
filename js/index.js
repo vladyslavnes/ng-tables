@@ -9,18 +9,18 @@ app.controller('GlobalCtrl',($scope,$rootScope,$window,$log) => {
 	
 	$scope.data = JSON.parse($scope.input);
 
-	for (var i = 0; i <= 50; i++) {
-		$scope.data[i] = {n:i, sqrt:Math.sqrt(i), square:i*i, log:Math.log(i), sin: Math.sin(i), cos: Math.cos(i), tan: Math.tan(i), random: Math.random()*i};
-	}
+	// for (var i = 0; i <= 50; i++) {
+	// 	$scope.data[i] = {n:i, sqrt:Math.sqrt(i), square:i*i, log:Math.log(i), sin: Math.sin(i), cos: Math.cos(i), tan: Math.tan(i), random: Math.random()*i};
+	// }
 	
 
-	$scope.updateData = () => {
+	$rootScope.updateData = () => {
 		$scope.input = JSON.stringify($scope.data);
 	};
 
 	$scope.deleteRow = (index) => {
 		$scope.data.splice(index,1);
-		$scope.updateData();		
+		$rootScope.updateData();		
 	};
 
 	$scope.addRow = () => {
@@ -30,10 +30,11 @@ app.controller('GlobalCtrl',($scope,$rootScope,$window,$log) => {
 			obj[col] = Number(prompt(col));
 		}
 		$scope.data.push(obj);
-		$scope.updateData();		
+		$rootScope.updateData();		
 	};
 
-	$scope.downloadData = (linkObj) => {
+	$scope.downloadData = () => {
+		var linkObj = document.createElement('a');
 		var dataStr = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify($scope.data));
 		linkObj.setAttribute('href',dataStr);
 		linkObj.setAttribute('download', 'table.json');
@@ -84,7 +85,7 @@ app.directive('barChart', [() => {
 	};
 }]);
 
-app.directive("ngFileSelect",($http) => {
+app.directive("ngFileSelect",($http,$rootScope) => {
 	return {
 		link: function($scope,el){
 			el.bind("change", function(e){
@@ -95,7 +96,7 @@ app.directive("ngFileSelect",($http) => {
 					reader.readAsText(file);
 					reader.onload = function(e) {
 					$scope.input = String(e.target.result);
-					updateData();
+					$rootScope.updateData();
 					};
 				} else {
 				alert(`Your browser doesn't support FileAPI!`);
