@@ -12,6 +12,10 @@ body {
 
 input[type="number"] {
   display: block;
+  width: 100%;
+  background-color: transparent;
+  padding: 5%;
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 main textarea {

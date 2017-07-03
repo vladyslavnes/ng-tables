@@ -16,7 +16,6 @@ app.controller('GlobalCtrl',($scope,$rootScope,$window,$log) => {
 
 	$scope.updateData = () => {
 		$scope.input = JSON.stringify($scope.data);
-		alert(document.querySelectorAll('.clearfix')[-1]);
 	};
 
 	$scope.deleteRow = (index) => {
