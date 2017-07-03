@@ -1,6 +1,6 @@
 var app = angular.module('table.main', []);
 
-app.controller('GlobalCtrl',($scope,$rootScope,$window,$log) => {
+app.controller('GlobalCtrl',($scope,$rootScope,$window) => {
 	$scope.language = 'en'
 ;	$scope.data = [];
 
@@ -9,9 +9,9 @@ app.controller('GlobalCtrl',($scope,$rootScope,$window,$log) => {
 	
 	$scope.data = JSON.parse($scope.input);
 
-	// for (var i = 0; i <= 50; i++) {
-	// 	$scope.data[i] = {n:i, sqrt:Math.sqrt(i), square:i*i, log:Math.log(i), sin: Math.sin(i), cos: Math.cos(i), tan: Math.tan(i), random: Math.random()*i};
-	// }
+	for (var i = 0; i <= 15; i++) {
+		$scope.data[i] = {n:i, sqrt:Math.sqrt(i), square:i*i,'2^n': Math.pow(2,i)};
+	}
 	
 
 	$rootScope.updateData = () => {
@@ -59,10 +59,10 @@ app.directive('barChart', [() => {
 				<div class="bar blue" ng-repeat="(key1,value) in data track by $index"
 					ng-init="largest = getLargest()"
 					ng-class="{'lighten-2': $index % 2, 'darken-2': !($index % 2)}"
-					ng-click="$log(value[key])"
-					ng-style="{'height': value[key] / largest[key] * height+'px', width: width / data.length - 1+'px', left: $index / data.length * width+'px'}
-				"></div>
-				{{}}
+					onclick="alert(this.innerText)"
+					ng-style="{'height': value[key] / largest[key] * height+'px', width: width / data.length - 1+'px', left: $index / data.length * width+'px'}"
+					style="color:transparent;-webkit-user-select:none;"
+					>{{value[key]}}</div>
 			</div>
 		`,
 		controller: function($scope, $element, $attrs) {
