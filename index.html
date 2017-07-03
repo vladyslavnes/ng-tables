@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="table.main">
+<head>
+	<title>App for managing JSON data</title>
+
+	<!-- META TAGS -->
+	<meta charset="UTF-8">
+
+ 	<!-- CSS -->
+ 	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/main.css">
+	
+	<!-- JS -->
+	<script src="js/lib/angular.min.js"></script>
+	<!-- <script src="js/lib/md5.min.js"></script> -->
+</head>
+<body class="row grey lighten-3" ng-controller="GlobalCtrl">
+	<!-- HEADER -->
+	<header></header>
+
+	<!-- MAIN -->
+	<main class="row">
+		<section class="col l7 s12">
+		<h2>Work here</h2>
+			<div class="btn left" ng-click="">
+				<a id="downloadLink"></a>
+				<i class="material-icons left">get_app</i>
+				<span class="left">download table in JSON</span>
+			</div>
+						
+			<div class="btn left" ng-click="data.reverse()">
+				<i class="material-icons left">loop</i>
+				<span class="left">reverse table</span>
+			</div>
+						
+			<div class="btn left" ng-click="addRow()">
+				<i class="material-icons left">playlist_add</i>
+				<span class="left">add row</span>
+			</div>
+			<div class="clearfix divider"></div>
+			<table class="centered striped bordered highlight responsive-table">
+			<thead ng-repeat="row in data track by $index" ng-if="!$index">
+			<td></td>
+				<td ng-repeat="(key,value) in row track by $index"><h4>{{key}}</h4></td>
+			<td></td>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key,row) in data track by $index" ng-init="rowID = $index;">
+				<td><h5><i class="material-icons">dehaze</i></h5></td>
+					<td ng-repeat="(key1,value) in row track by $index">
+						<center>
+							<input type="number" ng-model="data[rowID][key1]" ng-blur="updateData()">
+						</center>
+					</td>
+					<td>
+						<div class="red btn-floating" ng-click="deleteRow(rowID)"><i class="material-icons">delete</i></div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</section>
+		<section class="col l5 s12">
+			<div>	
+				<h2>Just Paste the JSON data here</h2>
+				<h3>Or parse the file: <input style="font-size: 50%;" type="file"></h3>
+				<textarea ng-model="input" ng-blur="parseInput(input)"></textarea>
+			</div><br>
+			<div class="divider"></div>
+			<div class="charts">
+				<h2>Here data is visualized</h2>
+				<!-- <h3>Select type of chart to be shown:</h3> -->
+					<bar-chart width="500" height="250"></bar-chart>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+
+
+	<!-- FOOTER -->
+	<footer class="black white-text">Copyright &copy; Vladyslav Nesterenko <br> Built with <a href="http://angularjs.org">Angular 1.6.9</a></footer>
+
+<script src="js/index.js"></script>
+</body>
+</html>
+
+<!-- [{"key":"key1", "value":"value1"},{"key":"key2", "value":"value2"}] -->
