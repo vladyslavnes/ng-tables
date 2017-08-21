@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="table.main">
+<html lang="en" ng-app="tables.main">
 <head>
 	<title>App for managing JSON data</title>
 
@@ -22,33 +22,43 @@
 	<main class="row">
 		<section class="col l7 s12">
 		<h2>Work here</h2>
-			<div class="btn left" ng-click="downloadData()">
+			<button class="btn left" ng-click="downloadData()">
 				<i class="material-icons left">get_app</i>
 				<span class="left">download table in JSON</span>
-			</div>
-						
-			<div class="btn left" ng-click="data.reverse()">
+			</button>
+			<button class="btn left" ng-click="data.reverse()">
 				<i class="material-icons left">loop</i>
 				<span class="left">reverse table</span>
-			</div>
+			</button>
 						
-			<div class="btn left" ng-click="addRow()">
+			<button class="btn left" ng-click="addRow()">
 				<i class="material-icons left">playlist_add</i>
 				<span class="left">add row</span>
-			</div>
-			<div class="clearfix divider"></div>
+			</button>
+			<button class="btn left" ng-click="addCol()">
+				<i class="material-icons left">add</i>
+				<span class="left">add column</span>
+			</button>
+			<button class="btn left" ng-click="deleteCol()">
+				<i class="material-icons left">remove</i>
+				<span class="left">remove column</span>
+			</button>
+			<button class="btn left" ng-click="useScript()">
+				<i class="material-icons left">code</i>
+				<span class="left">use script</span>
+			</button>
 			<table class="centered striped bordered highlight responsive-table">
-			<thead ng-repeat="row in data track by $index" ng-if="!$index">
+			<thead>
 			<td></td>
-				<td ng-repeat="(key,value) in row track by $index"><h4>{{key}}</h4></td>
+				<td ng-repeat="(key,value) in data[0] track by $index"><h4>{{key}}</h4></td>
 			<td></td>
 			</thead>
 			<tbody>
 				<tr ng-repeat="(key,row) in data track by $index" ng-init="rowID = $index;">
 				<td><h5><i class="material-icons">dehaze</i></h5></td>
-					<td ng-repeat="(key1,value) in row track by $index">
+					<td ng-repeat="(colID,value) in row track by $index">
 						<center>
-							<input type="number" ng-model="data[rowID][key1]" ng-blur="updateData()">
+							<input type="number" ng-model="data[rowID][colID]" ng-blur="updateData()">
 						</center>
 					</td>
 					<td>
@@ -62,7 +72,8 @@
 			<div>	
 				<h2>Just Paste the JSON data here</h2>
 				<h3>Or parse the file: <input style="font-size: 50%;" type="file" ng-file-select></h3>
-				<textarea ng-model="input" ng-blur="parseInput(input)"></textarea>
+				<textarea ng-model="input"></textarea>
+				<button class="btn btn-large" ng-click="updateData()">Parse input</button>
 			</div><br>
 			<div class="divider"></div>
 			<div class="charts">
@@ -84,5 +95,3 @@
 <script src="js/index.js"></script>
 </body>
 </html>
-
-<!-- [{"key":"key1", "value":"value1"},{"key":"key2", "value":"value2"}] -->
